@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<html>
+<body>
+<ul>
+    {{#Messages}}
+    <li>
+        {{messageText}}
+        <form action = "/delete-message" method="Post">
+            <input type = "hidden" value = "{{id}}" />
+            <button type = "submit"> delete </button>
+        </form>
+    </li>
+</ul>
+
+</body>
+</html>

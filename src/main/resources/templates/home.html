@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<html>
+<body>
+{{^name}} <!-- ^ denotes does NOT exist, run this code -->
+<form action="/login" method="post">
+    <input type="text" placeholder="Enter your name" name="userName"/>
+    <button type="submit">Login</button>
+</form>
+{{/name}}
+{{#name}}
+Hello, {{.}}!
+
+<form action="/add-message" method="post">
+    <input type="text" placeholder="Enter your message" name="message"/>
+    <button type="submit">Post</button>
+</form>
+{{/name}}
+<ul>
+    {{#messages}}
+    <li>
+        {{id}} {{messageText}}
+        <form action = "/delete-message" method="post">
+            <input type="hidden" name="id" value="{{id}}" />
+            <button type="submit">delete</button>
+        </form>
+    </li>
+    {{/messages}}
+</ul>
+
+
+
+</body>
+</html>
