@@ -1,32 +1,25 @@
 package com.theironyard;
 
+import javax.persistence.*;
+
 /**
  * Created by Jake on 5/8/17.
  */
+@Entity
+@Table(name = "messages")
 public class Message {
-    private static int messageCount = 0;
+    @Id
+    @GeneratedValue
     Integer id;
+
+    @Column (nullable = false)
     String messageText;
 
     public Message() {
-        id = messageCount;
-        messageCount++;
     }
 
     public Message(String messageText) {
-        this();
         this.messageText = messageText;
     }
 
-    public static int getMessageCount() {
-        return messageCount;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public String getMessageText() {
-        return messageText;
-    }
 }

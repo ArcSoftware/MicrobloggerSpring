@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <html>
+<head>
+    <script src="/jquery.js" ></script>
+    <script src="/script.js" ></script>
+</head>
+
 <body>
 {{^name}} <!-- ^ denotes does NOT exist, run this code -->
 <form action="/login" method="post">
@@ -15,18 +20,29 @@ Hello, {{.}}!
     <input type="text" placeholder="Enter your message" name="message"/>
     <button type="submit">Post</button>
 </form>
-{{/name}}
+
 <ul>
     {{#messages}}
-    <li>
+    <li class="message-list-item">
         {{id}} {{messageText}}
-        <form action = "/delete-message" method="post">
-            <input type="hidden" name="id" value="{{id}}" />
-            <button type="submit">delete</button>
-        </form>
+
+        <div class="modify-post" style="display:none;">
+            <form action = "/delete-message" method="post">
+                <input type="hidden" name="id" value="{{id}}" />
+                <button type="submit">delete</button>
+            </form>
+
+            <form action = "/update-message" method="post">
+                <input type="hidden" name="id" value="{{id}}" />
+                <input type="text" placeholder="updated message" name="update" />
+                <button type="submit">update</button>
+
+            </form>
+        </div>
     </li>
     {{/messages}}
 </ul>
+{{/name}}
 
 
 

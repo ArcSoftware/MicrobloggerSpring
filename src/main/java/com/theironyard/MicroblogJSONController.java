@@ -1,5 +1,6 @@
 package com.theironyard;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -10,28 +11,30 @@ import java.util.ArrayList;
 
 @RestController
 public class MicroblogJSONController {
+    @Autowired
+    MessageRepo messages;
     //.json URL
     //not storing model anymore because we hae no view anymore.
     @RequestMapping(path = "/add-message.json", method = RequestMethod.POST)
     public ArrayList<Message> jsonAdd(@RequestBody Message messageText) {
-        MicroBlogSpringController.messages.add(messageText);
-        return MicroBlogSpringController.messages;
+        messages.save(messageText);
+        return (ArrayList<Message>) messages.findAll();
     }
     @RequestMapping(path = "/remove-message.json", method = RequestMethod.POST)
     public ArrayList<Message> jsonRemove(@RequestBody Message id) {
-        for (Message allMessage: MicroBlogSpringController.messages) {
+        for (Message allMessage: messages.findAll()) {
             if (allMessage.id == id.id) {
                 Message a = allMessage;
-                MicroBlogSpringController.messages.remove(a);
+                messages.delete(a);
                 break;
             }
         }
 
-        return MicroBlogSpringController.messages;
+        return (ArrayList<Message>) messages.findAll();
     }
     @RequestMapping(path = "/get-messages.json", method = RequestMethod.GET)
     public ArrayList<Message> jsonReturn(Message messageText) {
-        return MicroBlogSpringController.messages;
+        return (ArrayList<Message>) messages.findAll();
     }
 
 }
